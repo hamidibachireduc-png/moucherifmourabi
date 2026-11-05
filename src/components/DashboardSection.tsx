@@ -317,137 +317,60 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({
   ];
 
   return (
-    <div className="space-y-6">
-      {/* البانر الرئيسي للداشبورد الشامل */}
-      <div className="rounded-2xl bg-gradient-to-l from-[#0e3523] via-[#092317] to-[#06170f] border border-[#d4af37]/50 p-5 sm:p-6 shadow-2xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-3xl">
-            <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className="px-2.5 py-0.5 rounded bg-[#8f1414] text-white font-bold">
-                البوابة الموحدة لسلك موظفي التربية ({stageCfg.name})
+    <div className="space-y-4">
+      {/* البانر العلوي المختصر للداشبورد الشامل */}
+      <div className="rounded-xl bg-gradient-to-l from-[#0e3523] via-[#092317] to-[#06170f] border border-[#d4af37]/40 p-3.5 sm:p-4 shadow-lg">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap items-center gap-2 text-[11px]">
+              <span className="px-2 py-0.5 rounded bg-[#8f1414] text-white font-bold">
+                {stageCfg.name} (سلم /{stageCfg.maxGradeScale})
               </span>
               <span className="text-[#f5d77f] font-bold">
                 {activeRole.category2554} · النصاب القانوني: {activeRole.weeklyHours} س/أسبوع
               </span>
+              <span className="text-slate-300 hidden sm:inline">
+                · الموسم {institution.schoolYear} (الفصل {institution.currentTerm})
+              </span>
             </div>
 
-            <h2 className="text-xl sm:text-3xl font-black text-white leading-tight">
+            <h2 className="text-base sm:text-xl font-black text-white leading-snug">
               الفضاء الرقمي لـ {roleDisplayTitle} — {institution.schoolName}
             </h2>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p className="text-xs text-slate-300 line-clamp-1">
               {activeRole.coreMission}
             </p>
-
-            {/* بطاقة التأكيد على اختصاص كل طور ورتبة */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
-              <div
-                onClick={() => onSelectStage('primary')}
-                className={`p-3 rounded-xl border cursor-pointer transition-all ${
-                  activeStage === 'primary'
-                    ? 'bg-[#105e32]/80 border-[#d4af37] shadow-md'
-                    : 'bg-[#06150e]/80 border-[#d4af37]/25 hover:border-[#d4af37]/60'
-                }`}
-              >
-                <div className="text-[11px] font-black text-[#f5d77f]">
-                  1. الطور الابتدائي (سلم /10)
-                </div>
-                <div className="text-xs font-bold text-white mt-0.5">
-                  مربي متخصص / مربي رئيسي
-                </div>
-                <div className="text-[10px] text-slate-300 mt-0.5">
-                  تأطير التلاميذ · المطعم المدرسي · الصحة UDS · مواظبة الفترات
-                </div>
-              </div>
-
-              <div
-                onClick={() => onSelectStage('middle')}
-                className={`p-3 rounded-xl border cursor-pointer transition-all ${
-                  activeStage === 'middle'
-                    ? 'bg-[#105e32]/80 border-[#d4af37] shadow-md'
-                    : 'bg-[#06150e]/80 border-[#d4af37]/25 hover:border-[#d4af37]/60'
-                }`}
-              >
-                <div className="text-[11px] font-black text-[#f5d77f]">
-                  2. الطور المتوسط (سلم /20)
-                </div>
-                <div className="text-xs font-bold text-white mt-0.5">
-                  المشرف التربوي والمساعد التربوي
-                </div>
-                <div className="text-[10px] text-slate-300 mt-0.5">
-                  الانضباط · كراريس الغياب · بطاقات الدخول · النصف داخلي · BEM
-                </div>
-              </div>
-
-              <div
-                onClick={() => onSelectStage('secondary')}
-                className={`p-3 rounded-xl border cursor-pointer transition-all ${
-                  activeStage === 'secondary'
-                    ? 'bg-[#105e32]/80 border-[#d4af37] shadow-md'
-                    : 'bg-[#06150e]/80 border-[#d4af37]/25 hover:border-[#d4af37]/60'
-                }`}
-              >
-                <div className="text-[11px] font-black text-[#f5d77f]">
-                  3. الطور الثانوي (سلم /20)
-                </div>
-                <div className="text-xs font-bold text-white mt-0.5">
-                  المشرف التربوي والمساعد التربوي
-                </div>
-                <div className="text-[10px] text-slate-300 mt-0.5">
-                  مواظبة الشعب والأفواج · المخابر · استدعاءات الأولياء · BAC
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2 pt-2">
-              <button
-                onClick={() => onNavigate('absences')}
-                className="px-3.5 py-2 rounded-lg bg-gradient-to-r from-[#d4af37] to-[#b58922] text-[#071710] font-black text-xs flex items-center gap-1.5 shadow hover:brightness-110 transition-all cursor-pointer"
-              >
-                <UserCheck className="w-4 h-4" />
-                <span>فتح سجل الغيابات وبطاقات الدخول ({stageCfg.shortName})</span>
-              </button>
-              <button
-                onClick={() => onNavigate('councils')}
-                className="px-3.5 py-2 rounded-lg bg-[#105e32] hover:bg-[#14753e] text-white border border-[#d4af37]/50 font-bold text-xs flex items-center gap-1.5 shadow transition-all cursor-pointer"
-              >
-                <Users className="w-4 h-4 text-[#f5d77f]" />
-                <span>المجالس التربوية والإدارية واللجان</span>
-              </button>
-              <button
-                onClick={() => onNavigate('career')}
-                className="px-3.5 py-2 rounded-lg bg-[#081a12] hover:bg-[#0d2b1d] text-[#f5d77f] border border-[#d4af37]/40 font-bold text-xs flex items-center gap-1.5 shadow transition-all cursor-pointer"
-              >
-                <Award className="w-4 h-4" />
-                <span>حاسبة الراتب والمنح والتقاعد 25-54</span>
-              </button>
-            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
-            <div className="bg-[#06170f]/90 border border-[#d4af37]/30 rounded-xl p-3.5 flex items-center gap-3.5 shadow-inner">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d4af37] to-[#aa771c] text-[#082014] flex items-center justify-center font-black text-lg shadow-lg tabular-nums">
-                فـ{institution.currentTerm}
-              </div>
-              <div>
-                <div className="text-[11px] text-slate-400 tabular-nums">
-                  الموسم الدراسي: {institution.schoolYear}
-                </div>
-                <div className="text-xs font-bold text-white">
-                  الفصل الدراسي {institution.currentTerm} ({stageCfg.name})
-                </div>
-                <div className="text-[11px] text-[#e5c158] font-medium tabular-nums">
-                  مزامنة الغيابات بالرقمنة: {syncRate}%
-                </div>
-              </div>
-            </div>
-
+          <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+            <button
+              onClick={() => onNavigate('absences')}
+              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#d4af37] to-[#b58922] text-[#071710] font-black text-xs flex items-center gap-1.5 shadow hover:brightness-110 transition-all cursor-pointer"
+            >
+              <UserCheck className="w-3.5 h-3.5" />
+              <span>سجل الغيابات ({stageCfg.shortName})</span>
+            </button>
+            <button
+              onClick={() => onNavigate('councils')}
+              className="px-3 py-1.5 rounded-lg bg-[#105e32] hover:bg-[#14753e] text-white border border-[#d4af37]/50 font-bold text-xs flex items-center gap-1.5 shadow transition-all cursor-pointer"
+            >
+              <Users className="w-3.5 h-3.5 text-[#f5d77f]" />
+              <span>المجالس واللجان</span>
+            </button>
+            <button
+              onClick={() => onNavigate('career')}
+              className="px-3 py-1.5 rounded-lg bg-[#081a12] hover:bg-[#0d2b1d] text-[#f5d77f] border border-[#d4af37]/40 font-bold text-xs flex items-center gap-1.5 shadow transition-all cursor-pointer"
+            >
+              <Award className="w-3.5 h-3.5" />
+              <span>حاسبة الراتب والتقاعد</span>
+            </button>
             <button
               onClick={onOpenSettings}
-              className="px-4 py-2.5 rounded-xl bg-[#105e32] hover:bg-[#157841] text-[#f5d77f] border border-[#d4af37]/50 text-xs font-bold flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all"
+              className="px-3 py-1.5 rounded-lg bg-[#0b2318] hover:bg-[#157841] text-emerald-300 border border-[#d4af37]/40 text-xs font-bold flex items-center gap-1.5 shadow cursor-pointer transition-all"
             >
-              <Settings className="w-4 h-4 text-emerald-300" />
-              <span>الإعدادات والنسخ الاحتياطي (JSON)</span>
+              <Settings className="w-3.5 h-3.5" />
+              <span>نسخ احتياطي JSON</span>
             </button>
           </div>
         </div>
